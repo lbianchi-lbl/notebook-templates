@@ -19,6 +19,15 @@ jobs:
         with:
           to: html
           path: ${{ inputs.notebook-path }}
-      - name: Save output
+      - name: Show output
         run: |
           ls -la
+      - name: Upload HTML files
+        uses: actions/upload-artifact@v3
+        with:
+          name: quarto-render-${{ inputs.notebook-path }}
+          path: |
+            *_files/
+            *.html
+          if-no-files-found: error
+
