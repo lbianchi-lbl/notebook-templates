@@ -1,0 +1,24 @@
+name: Reproducible documents
+
+on:
+  workflow_call:
+    inputs:
+      notebook-path:
+        description: Path to the notebook file
+        type: string
+        required: true
+
+jobs:
+
+  quarto-render:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: quarto-dev/quarto-actions/setup@v2
+      - uses: quarto-dev/quarto-actions/render@v2
+        with:
+          to: html
+          path: ${{ inputs.notebook-path }}
+      - name: Save output
+        run: |
+          ls -la
